@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,7 +35,7 @@ public class ProductController {
 		}
 		
 		@RequestMapping(method=RequestMethod.GET, value="/product/{id}")	
-		public ResponseEntity<Product> getCustomer(@RequestParam ("id") int id){
+		public ResponseEntity<Product> getCustomer(@PathVariable ("id") int id){
 			Product cus=productService.oneProduct(id);
 		if(cus==null){
 			return new ResponseEntity<Product>(HttpStatus.NO_CONTENT);
@@ -43,7 +44,7 @@ public class ProductController {
 		}
 		
 		//adding data in a database
-		@RequestMapping(method=RequestMethod.POST, value="/create")	
+		@RequestMapping(method=RequestMethod.POST)	
 		public ResponseEntity<Product> create(@RequestBody Product product){
 			Product cus=productService.createProduct(product);					
 			return new ResponseEntity<Product>(cus,HttpStatus.CREATED);
